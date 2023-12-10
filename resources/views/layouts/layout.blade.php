@@ -120,7 +120,7 @@
                     <!-- Dashboards -->
                     <li class="menu-item">
                         <a href="/home" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <i class='menu-icon tf-icons bx bxs-dashboard'></i>
                             <div data-i18n="Dashboards">Dashboards</div>
                         </a>
                     </li>
@@ -176,7 +176,7 @@
                     <!-- Dashboards -->
                     <li class="menu-item">
                         <a href="/home" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <i class='menu-icon tf-icons bx bxs-dashboard'></i>
                             <div data-i18n="Dashboards">Dashboards</div>
                         </a>
                     </li>
