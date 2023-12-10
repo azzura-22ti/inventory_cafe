@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class BarangKeluar extends Model
+{
+    use HasFactory;
+
+    protected $table = 'barang_keluar';
+
+    protected $fillable = [
+        'nama_barang','nama_kategori','stok','satuan','harga','tanggal_keluar','jumlah_keluar'
+    ];
+
+    const CREATED_AT = "created_at";
+    const UPDATED_AT = "updated_at";
+}
