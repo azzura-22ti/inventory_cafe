@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use App\Models\BarangMasuk;
+use App\Models\BarangKeluar;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BarangController extends Controller

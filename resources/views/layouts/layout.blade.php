@@ -158,12 +158,12 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="layouts-without-menu.html" class="menu-link">
+                                <a href="/cetak_masuk" class="menu-link">
                                     <div data-i18n="Without menu">Barang Masuk</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="layouts-without-navbar.html" class="menu-link">
+                                <a href="/cetak_keluar" class="menu-link">
                                     <div data-i18n="Without navbar">Barang Keluar</div>
                                 </a>
                             </li>

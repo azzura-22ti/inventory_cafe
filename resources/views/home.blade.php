@@ -38,7 +38,8 @@
                         <td>{{ $db->satuan }}</td>
                         <td>Rp. {{ number_format($db->harga) }}</td>
                         <td>
-                            <a href="/barang_masuk" class="btn btn-primary text-center"><i class='bx bx-plus'></i> Tambah</a>
+                            <a href="/barang_masuk" class="btn btn-primary text-center"><i class='menu-icon tf-icons bx bx-plus'></i> Tambah</a>
+
                         </td>
                         </tr>
                         @endif

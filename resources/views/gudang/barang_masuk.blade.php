@@ -36,7 +36,8 @@
                         <td>{{ $b->satuan }}</td>
                         <td>Rp. {{ $b->harga * $b->stok }}</td>
                         <td>
-                            <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-primary"><i class='bx bx-plus'></i> Tambah</a>
+                            <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-primary"><i class='menu-icon tf-icons bx bx-plus'></i> Tambah</a>
+
                         </td>
                     </tr>
                     @endforeach

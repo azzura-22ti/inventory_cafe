@@ -6,7 +6,8 @@
 <!-- Tabel -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="#" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalCreate"><i class='bx bx-plus'></i> Tambah</a>
+        <a href="#" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalCreate"><i class='menu-icon tf-icons bx bx-plus'></i> Tambah</a>
+
         <h3 class="fw-semibold">List Barang</h3>
     </div>
     <div class="card-body">

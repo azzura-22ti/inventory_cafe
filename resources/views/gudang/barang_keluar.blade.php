@@ -36,7 +36,8 @@
                         <td>{{ $b->satuan }}</td>
                         <td>{{ $b->harga }}</td>
                         <td>
-                            <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-danger"><i class='bx bx-minus'></i> Kurang</a>
+                            <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-danger"><i class='menu-icon tf-icons bx bx-minus'></i> Kurang</a>
+
                         </td>
                     </tr>
                     @endforeach

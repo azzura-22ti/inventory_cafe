@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\CetakBarangMasuk;
+use App\Http\Controllers\CetakBarangKeluar;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,14 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
     Route::post('/barang/store', [BarangController::class, 'store']);
     Route::post('/barang/update/{id}', [BarangController::class, 'update']);
     Route::get('/barang/destroy/{id}', [BarangController::class, 'destroy']);
+
+    // cetak laporan barang masuk
+    Route::get('/cetak_masuk', [CetakBarangMasuk::class, 'index']);
+    Route::get('/cetak_masuk/{tanggal_awal}/{tanggal_akhir}', [CetakBarangMasuk::class, 'cetakmasuk']);
+
+    // cetak laporan barang keluar
+    Route::get('/cetak_keluar', [CetakBarangKeluar::class, 'index']);
+    Route::get('/cetak_keluar/{tanggal_awal}/{tanggal_akhir}', [CetakBarangKeluar::class, 'cetakkeluar']);
     // ADMIN PUNYA
 
 
@@ -56,9 +66,5 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
     Route::post('/barang_keluar/update/{id}', [BarangKeluarController::class, 'update']);
     Route::get('/barang_keluar/destroy/{id}', [BarangKeluarController::class, 'destroy']);
     // GUDANG PUNYA
+
 });
-
-
-
-
-
