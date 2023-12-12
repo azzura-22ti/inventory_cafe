@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
 use App\Models\BarangMasuk;
+use App\Models\BarangKeluar;
 use App\Models\Kategori;
 use Carbon\Carbon;
 
@@ -31,4 +32,16 @@ class HomeController extends Controller
 
         return response()->json($stocks);
     }
+
+    public function barangKeluar()
+    {
+        $currentYear = Carbon::now()->year;
+        $stocks = BarangKeluar::select(DB::raw('COUNT(nama_barang) as total'), DB::raw('MONTH(tanggal_keluar) as month'))
+            ->whereYear('tanggal_keluar', $currentYear)
+            ->groupBy(DB::raw('MONTH(tanggal_keluar)'))
+            ->get();
+
+        return response()->json($stocks);
+    }
+
 }

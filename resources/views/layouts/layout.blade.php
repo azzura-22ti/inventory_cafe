@@ -324,6 +324,14 @@
     <script src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
+    {{-- chart js --}}
+    <script src="{{ url('vendor/chart.js/Chart.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/assets/js/demo/chart-area-demo.js"></script>
+    <script src="/assets/js/demo/chart-pie-demo.js"></script>
+    <script src="/assets/js/demo/chart-bar-demo.js"></script>
+
     {{-- amchart js --}}
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
@@ -332,200 +340,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
 
 
-    {{-- bar chart --}}
-    <script>
-        function fetchDataFromPHP() {
-            return axios.get('http://localhost:8000/home/api') // Ganti dengan lokasi file PHP Anda
-                .then(response => {
-                    if (response.status !== 200) {
-                        throw new Error('Failed to fetch data');
-                    }
-                    return response.data;
-                })
-                .catch(error => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                });
-        }
-
-        fetchDataFromPHP().then(d => {
-            am5.ready(function() {
-
-                var root = am5.Root.new("barchart");
-
-                root.setThemes([
-                    am5themes_Animated.new(root)
-                ]);
-
-                var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                    panX: false
-                    , panY: false
-                    , paddingLeft: 0
-                    , wheelX: "panX"
-                    , wheelY: "zoomX"
-                    , layout: root.verticalLayout
-                }));
-
-                var legend = chart.children.push(
-                    am5.Legend.new(root, {
-                        centerX: am5.p50
-                        , x: am5.p50
-                    })
-                );
-
-
-
-                // Mengambil data menggunakan Axios dan menyimpannya dalam variabel
-                var data = d;
-                console.log(data);
-
-                // var data = dataChart1;
-                // [{
-                //     "month": "Januari"
-                //     , "barang-masuk": 2.5
-                //     , "barang-keluar": 2.5
-                // , }]
-
-                var xRenderer = am5xy.AxisRendererX.new(root, {
-                    cellStartLocation: 0.1
-                    , cellEndLocation: 0.9
-                    , minorGridEnabled: true
-                })
-
-                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                    categoryField: "month"
-                    , renderer: xRenderer
-                    , tooltip: am5.Tooltip.new(root, {})
-                }));
-
-                xRenderer.grid.template.setAll({
-                    location: 3
-                })
-
-                xAxis.data.setAll(data);
-
-                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                    renderer: am5xy.AxisRendererY.new(root, {
-                        strokeOpacity: 0.1
-                    })
-                }));
-
-                function makeSeries(name, fieldName) {
-                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                        name: name
-                        , xAxis: xAxis
-                        , yAxis: yAxis
-                        , valueYField: fieldName
-                        , categoryXField: "month"
-                    }));
-
-                    series.columns.template.setAll({
-                        tooltipText: "{name}, {categoryX}:{valueY}"
-                        , width: am5.percent(90)
-                        , tooltipY: 0
-                        , strokeOpacity: 0
-                    });
-
-                    series.data.setAll(data);
-
-                    series.appear();
-
-                    series.bullets.push(function() {
-                        return am5.Bullet.new(root, {
-                            locationY: 0
-                            , sprite: am5.Label.new(root, {
-                                text: "{valueY}"
-                                , fill: root.interfaceColors.get("alternativeText")
-                                , centerY: 0
-                                , centerX: am5.p50
-                                , populateText: true
-                            })
-                        });
-                    });
-
-                    legend.data.push(series);
-                }
-
-                makeSeries("Barang Masuk", "total");
-
-                chart.appear(1000, 100);
-
-            });
-        });
-
-    </script>
-    {{-- bar chart --}}
-
-    {{-- pie chart --}}
-    <script>
-        function fetchDataFromPHP() {
-            return axios.get('http://localhost:8000/home/api') // Ganti dengan lokasi file PHP Anda
-                .then(response => {
-                    if (response.status !== 200) {
-                        throw new Error('Failed to fetch data');
-                    }
-                    return response.data;
-                })
-                .catch(error => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                });
-        }
-
-        fetchDataFromPHP().then(d => {
-            am5.ready(function() {
-
-                var root = am5.Root.new("piechart");
-
-                root.setThemes([
-                    am5themes_Animated.new(root)
-                ]);
-
-                var chart = root.container.children.push(am5percent.PieChart.new(root, {
-                    layout: root.verticalLayout
-                    , innerRadius: am5.percent(50)
-                }));
-
-                var series = chart.series.push(am5percent.PieSeries.new(root, {
-                    valueField: "value"
-                    , categoryField: "category"
-                    , alignLabels: false
-                }));
-
-                series.labels.template.setAll({
-                    textType: "circular"
-                    , centerX: 0
-                    , centerY: 0
-                });
-
-                series.data.setAll([{
-                        value: 3
-                        , category: "Barang Masuk"
-                    }
-                    , {
-                        value: 2
-                        , category: "Barang Keluar"
-                    }
-                ]);
-
-                var legend = chart.children.push(am5.Legend.new(root, {
-                    centerX: am5.percent(50)
-                    , x: am5.percent(50)
-                    , marginTop: 15
-                    , marginBottom: 15
-                , }));
-
-                legend.data.setAll(series.dataItems);
-
-                series.appear(1000, 100);
-
-            });
-        });
-
-    </script>
-    {{-- pie chart --}}
-
 
     <!-- Page level custom scripts -->
     <script src="/assets/js/demo/datatables-demo.js"></script>
+
 
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>

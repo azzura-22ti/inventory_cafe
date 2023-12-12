@@ -1,5 +1,4 @@
 @extends('layouts.layout')
-
 @section('content')
 <h1 class="h3 mb-2 text-gray-800 mb-4">Dashboard</h1>
 
@@ -28,6 +27,7 @@
                     @endphp
 
                     @foreach ($data_barang as $db)
+
                     @if ($db->stok <= 5) <tr>
                         <td>{{ $no++ }}</td>
                         <td>
@@ -53,24 +53,12 @@
 
 <!-- chart -->
 <div class="row">
-    <div class="card shadow mb-4 col-7" style="margin-right: 20px; margin-left:10px;">
-        <div class="card-header py-3 mt-2">
-            <h4 class="fw-semibold">Laporan Barang Per-Bulan</h4>
-        </div>
+    <div class="card shadow mb-4 col-6" style="margin-right: 9px; margin-left:10px;">
         <div class="card-body">
-            <div id="barchart"></div>
-        </div>
-    </div>
-    <div class="card shadow col-4">
-        <div class="card-header py-3">
-            <h4 class="fw-semibold mt-3">Laporan Barang Total</h4>
-        </div>
-        <div class="card-body">
-            <div id="piechart"></div>
+            <div id="bar"></div>
         </div>
     </div>
 </div>
-
 
 
 @endsection

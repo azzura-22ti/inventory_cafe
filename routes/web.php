@@ -28,7 +28,8 @@ Route::post('/logout' , [LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('/home' , [HomeController::class, 'index'])->name('home');
-Route::get('/home/api' , [HomeController::class, 'barangMasuk'])->name('barangMasuk');
+Route::get('/home/barang-masuk' , [HomeController::class, 'barangMasuk'])->name('barangMasuk');
+Route::get('/home/barang-keluar' , [HomeController::class, 'barangKeluar'])->name('barangKeluar');
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
     // ADMIN PUNYA
