@@ -329,148 +329,127 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+
 
     {{-- bar chart --}}
     <script>
-        am5.ready(function() {
-
-            var root = am5.Root.new("barchart");
-
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
-
-            var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                panX: false
-                , panY: false
-                , paddingLeft: 0
-                , wheelX: "panX"
-                , wheelY: "zoomX"
-                , layout: root.verticalLayout
-            }));
-
-            var legend = chart.children.push(
-                am5.Legend.new(root, {
-                    centerX: am5.p50
-                    , x: am5.p50
+        function fetchDataFromPHP() {
+            return axios.get('http://localhost:8000/home/api') // Ganti dengan lokasi file PHP Anda
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.data;
                 })
-            );
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
 
-            var data = [{
-                "month": "Januari"
-                , "barang-masuk": 2.5
-                , "barang-keluar": 2.5
-            , }, {
-                "month": "Februari"
-                , "barang-masuk": 2.6
-                , "barang-keluar": 2.6
-            , }, {
-                "month": "Maret"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "April"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Mei"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Juni"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Juli"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Agustus"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "September"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Oktober"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "November"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }, {
-                "month": "Desember"
-                , "barang-masuk": 2.8
-                , "barang-keluar": 2.9
-            , }]
+        fetchDataFromPHP().then(d => {
+            am5.ready(function() {
 
-            var xRenderer = am5xy.AxisRendererX.new(root, {
-                cellStartLocation: 0.1
-                , cellEndLocation: 0.9
-                , minorGridEnabled: true
-            })
+                var root = am5.Root.new("barchart");
 
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                categoryField: "month"
-                , renderer: xRenderer
-                , tooltip: am5.Tooltip.new(root, {})
-            }));
+                root.setThemes([
+                    am5themes_Animated.new(root)
+                ]);
 
-            xRenderer.grid.template.setAll({
-                location: 3
-            })
-
-            xAxis.data.setAll(data);
-
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                renderer: am5xy.AxisRendererY.new(root, {
-                    strokeOpacity: 0.1
-                })
-            }));
-
-            function makeSeries(name, fieldName) {
-                var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                    name: name
-                    , xAxis: xAxis
-                    , yAxis: yAxis
-                    , valueYField: fieldName
-                    , categoryXField: "month"
+                var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                    panX: false
+                    , panY: false
+                    , paddingLeft: 0
+                    , wheelX: "panX"
+                    , wheelY: "zoomX"
+                    , layout: root.verticalLayout
                 }));
 
-                series.columns.template.setAll({
-                    tooltipText: "{name}, {categoryX}:{valueY}"
-                    , width: am5.percent(90)
-                    , tooltipY: 0
-                    , strokeOpacity: 0
-                });
+                var legend = chart.children.push(
+                    am5.Legend.new(root, {
+                        centerX: am5.p50
+                        , x: am5.p50
+                    })
+                );
 
-                series.data.setAll(data);
 
-                series.appear();
 
-                series.bullets.push(function() {
-                    return am5.Bullet.new(root, {
-                        locationY: 0
-                        , sprite: am5.Label.new(root, {
-                            text: "{valueY}"
-                            , fill: root.interfaceColors.get("alternativeText")
-                            , centerY: 0
-                            , centerX: am5.p50
-                            , populateText: true
-                        })
+                // Mengambil data menggunakan Axios dan menyimpannya dalam variabel
+                var data = d;
+                console.log(data);
+
+                // var data = dataChart1;
+                // [{
+                //     "month": "Januari"
+                //     , "barang-masuk": 2.5
+                //     , "barang-keluar": 2.5
+                // , }]
+
+                var xRenderer = am5xy.AxisRendererX.new(root, {
+                    cellStartLocation: 0.1
+                    , cellEndLocation: 0.9
+                    , minorGridEnabled: true
+                })
+
+                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                    categoryField: "month"
+                    , renderer: xRenderer
+                    , tooltip: am5.Tooltip.new(root, {})
+                }));
+
+                xRenderer.grid.template.setAll({
+                    location: 3
+                })
+
+                xAxis.data.setAll(data);
+
+                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                    renderer: am5xy.AxisRendererY.new(root, {
+                        strokeOpacity: 0.1
+                    })
+                }));
+
+                function makeSeries(name, fieldName) {
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: name
+                        , xAxis: xAxis
+                        , yAxis: yAxis
+                        , valueYField: fieldName
+                        , categoryXField: "month"
+                    }));
+
+                    series.columns.template.setAll({
+                        tooltipText: "{name}, {categoryX}:{valueY}"
+                        , width: am5.percent(90)
+                        , tooltipY: 0
+                        , strokeOpacity: 0
                     });
-                });
 
-                legend.data.push(series);
-            }
+                    series.data.setAll(data);
 
-            makeSeries("Barang Masuk", "barang-masuk");
-            makeSeries("Barang Keluar", "barang-keluar");
+                    series.appear();
 
-            chart.appear(1000, 100);
+                    series.bullets.push(function() {
+                        return am5.Bullet.new(root, {
+                            locationY: 0
+                            , sprite: am5.Label.new(root, {
+                                text: "{valueY}"
+                                , fill: root.interfaceColors.get("alternativeText")
+                                , centerY: 0
+                                , centerX: am5.p50
+                                , populateText: true
+                            })
+                        });
+                    });
 
+                    legend.data.push(series);
+                }
+
+                makeSeries("Barang Masuk", "total");
+
+                chart.appear(1000, 100);
+
+            });
         });
 
     </script>
@@ -478,52 +457,67 @@
 
     {{-- pie chart --}}
     <script>
-        am5.ready(function() {
+        function fetchDataFromPHP() {
+            return axios.get('http://localhost:8000/home/api') // Ganti dengan lokasi file PHP Anda
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.data;
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
 
-            var root = am5.Root.new("piechart");
+        fetchDataFromPHP().then(d => {
+            am5.ready(function() {
 
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
+                var root = am5.Root.new("piechart");
 
-            var chart = root.container.children.push(am5percent.PieChart.new(root, {
-                layout: root.verticalLayout
-                , innerRadius: am5.percent(50)
-            }));
+                root.setThemes([
+                    am5themes_Animated.new(root)
+                ]);
 
-            var series = chart.series.push(am5percent.PieSeries.new(root, {
-                valueField: "value"
-                , categoryField: "category"
-                , alignLabels: false
-            }));
+                var chart = root.container.children.push(am5percent.PieChart.new(root, {
+                    layout: root.verticalLayout
+                    , innerRadius: am5.percent(50)
+                }));
 
-            series.labels.template.setAll({
-                textType: "circular"
-                , centerX: 0
-                , centerY: 0
+                var series = chart.series.push(am5percent.PieSeries.new(root, {
+                    valueField: "value"
+                    , categoryField: "category"
+                    , alignLabels: false
+                }));
+
+                series.labels.template.setAll({
+                    textType: "circular"
+                    , centerX: 0
+                    , centerY: 0
+                });
+
+                series.data.setAll([{
+                        value: 3
+                        , category: "Barang Masuk"
+                    }
+                    , {
+                        value: 2
+                        , category: "Barang Keluar"
+                    }
+                ]);
+
+                var legend = chart.children.push(am5.Legend.new(root, {
+                    centerX: am5.percent(50)
+                    , x: am5.percent(50)
+                    , marginTop: 15
+                    , marginBottom: 15
+                , }));
+
+                legend.data.setAll(series.dataItems);
+
+                series.appear(1000, 100);
+
             });
-
-            series.data.setAll([{
-                    value: 3
-                    , category: "Barang Masuk"
-                }
-                , {
-                    value: 2
-                    , category: "Barang Keluar"
-                }
-            ]);
-
-            var legend = chart.children.push(am5.Legend.new(root, {
-                centerX: am5.percent(50)
-                , x: am5.percent(50)
-                , marginTop: 15
-                , marginBottom: 15
-            , }));
-
-            legend.data.setAll(series.dataItems);
-
-            series.appear(1000, 100);
-
         });
 
     </script>

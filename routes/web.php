@@ -27,9 +27,10 @@ Route::post('/logout' , [LoginController::class, 'logout'])->name('logout');
 
 
 
-Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
-    Route::get('/home' , [HomeController::class, 'index'])->name('home');
+Route::get('/home' , [HomeController::class, 'index'])->name('home');
+Route::get('/home/api' , [HomeController::class, 'barangMasuk'])->name('barangMasuk');
 
+Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
     // ADMIN PUNYA
     // data user
     Route::get('/user', [UserController::class, 'index']);

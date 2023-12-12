@@ -18,7 +18,7 @@
                         <th>Kategori</th>
                         <th>Stok</th>
                         <th>Satuan</th>
-                        <th>Total</th>
+                        <th>Total Harga</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                         <td>{{ $b->nama_kategori }}</td>
                         <td>{{ $b->stok }}</td>
                         <td>{{ $b->satuan }}</td>
-                        <td>{{ $b->harga }}</td>
+                        <td>Rp. {{ number_format($b->harga * $b->stok) }}</td>
                         <td>
                             <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-danger"><i class='menu-icon tf-icons bx bx-minus'></i> Kurang</a>
 
