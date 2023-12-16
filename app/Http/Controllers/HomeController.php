@@ -8,6 +8,7 @@ use App\Models\Barang;
 use App\Models\BarangMasuk;
 use App\Models\BarangKeluar;
 use App\Models\Kategori;
+use App\Models\User;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -19,7 +20,12 @@ class HomeController extends Controller
             'data_barang' => Barang::all(),
         );
 
-        return view('home', $data);
+        $user = User::count();
+        $jumlah_barang = Barang::count();
+        $jumlah_masuk = BarangMasuk::count();
+        $jumlah_keluar = BarangKeluar::count();
+
+        return view('home', $data)->with('user', $user)->with('jumlah_barang', $jumlah_barang)->with('jumlah_masuk', $jumlah_masuk)->with('jumlah_keluar', $jumlah_keluar);
     }
 
     public function barangMasuk()

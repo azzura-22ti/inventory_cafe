@@ -51,11 +51,77 @@
 </div>
 @endif
 
+@if(auth()->user()->level == 'admin')
+<div class="row">
+    <div class="col-lg-3 col-md-12 col-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <span class="badge rounded-pill bg-label-primary"><i class='bx bxs-user'></i></span>
+                    <span>Jumlah User</span>
+                </div>
+                <h3 class="card-title mb-2">{{ $user }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+
+                    <span class="badge rounded-pill bg-label-info"><i class='bx bx-box'></i></span>
+                    <span>Jumlah Barang</span>
+
+
+                </div>
+                <h3 class="card-title text-nowrap mb-1">{{ $jumlah_barang }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-12 col-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+
+                    <span class="badge rounded-pill bg-label-success"><i class='bx bxl-dropbox'></i></span>
+                    <span>Jumlah Barang Masuk</span>
+
+
+                </div>
+                <h3 class="card-title mb-2">{{ $jumlah_masuk }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-12 col-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+
+                    <span class="badge rounded-pill bg-label-danger"><i class='bx bxs-truck'></i></span>
+                    <span>Jumlah Barang Keluar</span>
+
+                </div>
+                <h3 class="card-title text-nowrap mb-2">{{ $jumlah_keluar }}</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@endif
+
 <!-- chart -->
 
 <div class="card shadow mb-4 col-12">
     <div class="card-header py-3">
-        <h4 class="text-center">Laporan Barang Masuk Per Bulan</h4>
+        <h4 class="text-center">Laporan Barang <span class="badge bg-label-success">Masuk</span> Per Bulan</h4>
+
     </div>
     <div class="card-body">
         <div class="chart-bar">
@@ -65,7 +131,8 @@
 </div>
 <div class="card shadow mb-4 col-12">
     <div class="card-header py-3">
-        <h4 class="text-center">Laporan Barang Keluar Per Bulan</h4>
+        <h4 class="text-center">Laporan Barang <span class="badge bg-label-danger">Keluar</span> Per Bulan</h4>
+
     </div>
     <div class="card-body">
         <div class="chart-bar">

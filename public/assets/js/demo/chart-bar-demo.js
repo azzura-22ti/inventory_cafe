@@ -170,7 +170,7 @@ axios.get("http://localhost:8000/home/barang-keluar").then((resp) => {
             ],
             datasets: [
                 {
-                    label: "Revenue",
+                    label: "Jumlah Transaksi",
                     backgroundColor: "#4e73df",
                     hoverBackgroundColor: "#2e59d9",
                     borderColor: "#4e73df",
@@ -248,7 +248,7 @@ axios.get("http://localhost:8000/home/barang-keluar").then((resp) => {
                             "";
                         return (
                             datasetLabel +
-                            ": $" +
+                            ": " +
                             number_format(tooltipItem.yLabel)
                         );
                     },
