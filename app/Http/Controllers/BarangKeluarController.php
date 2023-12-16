@@ -34,18 +34,25 @@ class BarangKeluarController extends Controller
 
         $barang = Barang::find($id);
 
-        if ($barang) {
-            $barang->stok -= $request->jumlah_keluar;
-            $barang->save();
-        }
-
         $data = array(
             'title' => 'Barang Masuk | Inv-Cafe',
             'barang_keluar' => BarangKeluar::all(),
             'data_barang' => Barang::all(),
         );
 
-        Alert::success('Berhasil', 'Data berhasil dikurangi!');
+        if ($barang) {
+            if ($barang->stok >= $request->jumlah_keluar && $request->jumlah_keluar > 0) {
+                $barang->stok -= $request->jumlah_keluar;
+                $barang->save();
+                Alert::success('Berhasil', 'Data berhasil dikurangi!');
+            } elseif ($barang->stok < $request->jumlah_keluar) {
+                Alert::error('Gagal', 'Jumlah Permintaan Lebih Dari Stok');
+            } else {
+                Alert::error('Gagal', 'Jumlah Barang yang Dikeluarkan Tidak Valid');
+            }
+        } else {
+            Alert::error('Gagal', 'Barang Tidak Ditemukan!');
+        }
 
         return view('gudang.barang_keluar', $data);
     }
