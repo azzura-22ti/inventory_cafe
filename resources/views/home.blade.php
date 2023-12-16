@@ -52,13 +52,31 @@
 @endif
 
 <!-- chart -->
-<div class="row">
-    <div class="card shadow mb-4 col-6" style="margin-right: 9px; margin-left:10px;">
-        <div class="card-body">
-            <div id="bar"></div>
+
+<div class="card shadow mb-4 col-12">
+    <div class="card-header py-3">
+        <h4 class="text-center">Laporan Barang Masuk Per Bulan</h4>
+    </div>
+    <div class="card-body">
+        <div class="chart-bar">
+            <canvas id="myBarChart"></canvas>
         </div>
     </div>
 </div>
+<div class="card shadow mb-4 col-12">
+    <div class="card-header py-3">
+        <h4 class="text-center">Laporan Barang Keluar Per Bulan</h4>
+    </div>
+    <div class="card-body">
+        <div class="chart-bar">
+            <canvas id="chartkeluar"></canvas>
+
+        </div>
+    </div>
+</div>
+
+
+
 
 
 @endsection

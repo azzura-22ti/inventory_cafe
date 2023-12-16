@@ -21,9 +21,12 @@
     <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+
+    <link rel="stylesheet" href="{{ url('assets/css/demo.css') }}" />
+
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css" rel="stylesheet">
     <link href="/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
@@ -313,6 +316,7 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/assets/vendor/libs/popper/popper.js"></script>
     <script src="/assets/vendor/js/bootstrap.js"></script>
@@ -322,31 +326,35 @@
     <script src="js/sb-admin-2.min.js"></script>
     <script src="/assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
 
     {{-- chart js --}}
-    <script src="{{ url('vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url('assets/js/charts-chartjs.js') }}"></script>
+    <script src="{{ url('assets/vendor/libs/chartjs/chartjs.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assetsvendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Page level custom scripts -->
+
+    <!-- chart js-->
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assets/js/sb-admin-2.min.js"></script>
+    <script src="/assets/vendor/chart.js/Chart.min.js"></script>
     <script src="/assets/js/demo/chart-area-demo.js"></script>
     <script src="/assets/js/demo/chart-pie-demo.js"></script>
     <script src="/assets/js/demo/chart-bar-demo.js"></script>
 
-    {{-- amchart js --}}
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-
 
 
     <!-- Page level custom scripts -->
-    <script src="/assets/js/demo/datatables-demo.js"></script>
+    <script src="{{ url('assets/js/demo/datatables-demo.js') }}"></script>
+
 
 
     <!-- Main JS -->
-    <script src="/assets/js/main.js"></script>
+    <script src="{{ url('assets/js/main.js') }}"></script>
+
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

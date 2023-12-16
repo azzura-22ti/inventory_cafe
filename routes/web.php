@@ -59,14 +59,10 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
     // data barang masuk
     Route::get('/barang_masuk', [BarangMasukController::class, 'index']);
     Route::post('/barang_masuk/store/{id}', [BarangMasukController::class, 'store']);
-    Route::post('/barang_masuk/update/{id}', [BarangMasukController::class, 'update']);
-    Route::get('/barang_masuk/destroy/{id}', [BarangMasukController::class, 'destroy']);
 
     // data barang keluar
     Route::get('/barang_keluar', [BarangKeluarController::class, 'index']);
     Route::post('/barang_keluar/store/{id}', [BarangKeluarController::class, 'store']);
-    Route::post('/barang_keluar/update/{id}', [BarangKeluarController::class, 'update']);
-    Route::get('/barang_keluar/destroy/{id}', [BarangKeluarController::class, 'destroy']);
     // GUDANG PUNYA
 
 });
