@@ -22,29 +22,32 @@ class BarangKeluarController extends Controller
 
     public function store(Request $request, $id)
     {
-        BarangKeluar::create([
-            'nama_barang' => $request->nama_barang,
-            'nama_kategori' => $request->nama_kategori,
-            'stok' => $request->stok,
-            'satuan' => $request->satuan,
-            'harga' => $request->harga,
-            'tanggal_keluar' => $request->tanggal_keluar,
-            'jumlah_keluar' => $request->jumlah_keluar,
-        ]);
-
         $barang = Barang::find($id);
-
-        $data = array(
-            'title' => 'Barang Masuk | Inv-Cafe',
-            'barang_keluar' => BarangKeluar::all(),
-            'data_barang' => Barang::all(),
-        );
 
         if ($barang) {
             if ($barang->stok >= $request->jumlah_keluar && $request->jumlah_keluar > 0) {
+                $barangKeluar = new BarangKeluar([
+                    'nama_barang' => $request->nama_barang,
+                    'nama_kategori' => $request->nama_kategori,
+                    'stok' => $request->stok,
+                    'satuan' => $request->satuan,
+                    'harga' => $request->harga,
+                    'tanggal_keluar' => $request->tanggal_keluar,
+                    'jumlah_keluar' => $request->jumlah_keluar,
+                ]);
+                $barangKeluar->save();
+
                 $barang->stok -= $request->jumlah_keluar;
                 $barang->save();
+
+                $data = array(
+                    'title' => 'Barang Masuk | Inv-Cafe',
+                    'barang_keluar' => BarangKeluar::all(),
+                    'data_barang' => Barang::all(),
+                );
+
                 Alert::success('Berhasil', 'Data berhasil dikurangi!');
+                return view('gudang.barang_keluar', $data);
             } elseif ($barang->stok < $request->jumlah_keluar) {
                 Alert::error('Gagal', 'Jumlah Permintaan Lebih Dari Stok');
             } else {
@@ -54,6 +57,6 @@ class BarangKeluarController extends Controller
             Alert::error('Gagal', 'Barang Tidak Ditemukan!');
         }
 
-        return view('gudang.barang_keluar', $data);
+        return redirect()->back();
     }
 }

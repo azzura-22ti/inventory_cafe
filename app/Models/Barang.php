@@ -12,7 +12,7 @@ class Barang extends Model
     protected $table = 'barang';
 
     protected $fillable = [
-        'nama_barang','nama_kategori','stok','satuan','harga'
+        'nama_barang', 'nama_kategori', 'stok', 'satuan', 'harga'
     ];
 
     const CREATED_AT = "created_at";

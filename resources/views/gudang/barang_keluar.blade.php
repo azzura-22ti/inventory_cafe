@@ -77,7 +77,7 @@
                             <input type="number" id="nameWithTitle" value="{{ $ba->stok }}" name="stok" class="form-control" placeholder="Jumlah Stok" readonly />
                         </div>
                         <div class="col mb-3">
-                            <label for="nameWithTitle" class="form-label">Tambah Stok</label>
+                            <label for="nameWithTitle" class="form-label">Kurangi Stok</label>
                             <input type="number" id="nameWithTitle" name="jumlah_keluar" class="form-control" placeholder="Jumlah Stok" />
                         </div>
                         <div class="col mb-3">

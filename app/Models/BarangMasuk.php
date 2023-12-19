@@ -12,7 +12,7 @@ class BarangMasuk extends Model
     protected $table = 'barang_masuk';
 
     protected $fillable = [
-        'nama_barang','nama_kategori','stok','satuan','harga','tanggal_masuk','jumlah_masuk',
+        'nama_barang', 'nama_kategori', 'stok', 'satuan', 'harga', 'tanggal_masuk', 'jumlah_masuk',
     ];
 
     const CREATED_AT = "created_at";
