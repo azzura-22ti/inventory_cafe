@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
 use App\Models\BarangMasuk;
 use App\Models\BarangKeluar;
-use App\Models\Kategori;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -49,5 +48,4 @@ class HomeController extends Controller
 
         return response()->json($stocks);
     }
-
 }
