@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2023 at 08:20 AM
+-- Generation Time: Jan 02, 2024 at 04:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -70,6 +70,7 @@ CREATE TABLE `barang_masuk` (
   `stok` int(11) DEFAULT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `harga` bigint(20) DEFAULT NULL,
+  `expired_date` date DEFAULT NULL,
   `tanggal_masuk` date NOT NULL,
   `jumlah_masuk` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
