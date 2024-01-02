@@ -29,231 +29,155 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Bar Chart masuk
-axios.get("http://localhost:8000/home/barang-masuk").then((resp) => {
-    const dataS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    resp.data.forEach((element) => {
-        dataS[element.month - 1] = element.total;
-    });
-    var ctx = document.getElementById("myBarChart");
-    console.log(resp);
-    var myBarChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "Oktober",
-                "November",
-                "Desember",
-            ],
-            datasets: [
-                {
-                    label: "Jumlah Transaksi",
-                    backgroundColor: "#4e73df",
-                    hoverBackgroundColor: "#2e59d9",
-                    borderColor: "#4e73df",
-                    data: dataS,
-                },
-            ],
-        },
-        options: {
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0,
-                },
-            },
-            scales: {
-                xAxes: [
-                    {
-                        time: {
-                            unit: "month",
-                        },
-                        gridLines: {
-                            display: false,
-                            drawBorder: false,
-                        },
-                        ticks: {
-                            maxTicksLimit: 6,
-                        },
-                        maxBarThickness: 25,
-                    },
-                ],
-                yAxes: [
-                    {
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            maxTicksLimit: 5,
-                            padding: 10,
-                            // Include a dollar sign in the ticks
-                            callback: function (value, index, values) {
-                                return "" + number_format(value);
-                            },
-                        },
-                        gridLines: {
-                            color: "rgb(234, 236, 244)",
-                            zeroLineColor: "rgb(234, 236, 244)",
-                            drawBorder: false,
-                            borderDash: [2],
-                            zeroLineBorderDash: [2],
-                        },
-                    },
-                ],
-            },
-            legend: {
-                display: false,
-            },
-            tooltips: {
-                titleMarginBottom: 10,
-                titleFontColor: "#6e707e",
-                titleFontSize: 14,
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: "#dddfeb",
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-                callbacks: {
-                    label: function (tooltipItem, chart) {
-                        var datasetLabel =
-                            chart.datasets[tooltipItem.datasetIndex].label ||
-                            "";
-                        return (
-                            datasetLabel +
-                            ": " +
-                            number_format(tooltipItem.yLabel)
-                        );
-                    },
-                },
-            },
-        },
-    });
-});
+// Function for number formatting
+function number_format(number, decimals, dec_point, thousands_sep) {
+    // ... [number_format function code]
+}
 
-// bar chart keluar
-axios.get("http://localhost:8000/home/barang-keluar").then((resp) => {
-    const dataS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    resp.data.forEach((element) => {
-        dataS[element.month - 1] = element.total;
-    });
-    var ctx = document.getElementById("chartkeluar");
-    console.log(resp);
-    var myBarChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "Oktober",
-                "November",
-                "Desember",
-            ],
-            datasets: [
-                {
-                    label: "Jumlah Transaksi",
-                    backgroundColor: "#4e73df",
-                    hoverBackgroundColor: "#2e59d9",
-                    borderColor: "#4e73df",
-                    data: dataS,
-                },
-            ],
-        },
-        options: {
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0,
-                },
-            },
-            scales: {
-                xAxes: [
-                    {
-                        time: {
-                            unit: "month",
-                        },
-                        gridLines: {
-                            display: false,
-                            drawBorder: false,
-                        },
-                        ticks: {
-                            maxTicksLimit: 6,
-                        },
-                        maxBarThickness: 25,
+// Axios to fetch data for barang masuk
+axios
+    .get("http://localhost:8000/home/barang-masuk")
+    .then((respMasuk) => {
+        const dataMasuk = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        respMasuk.data.forEach((element) => {
+            dataMasuk[element.month - 1] = element.total;
+        });
+
+        // Axios to fetch data for barang keluar
+        axios
+            .get("http://localhost:8000/home/barang-keluar")
+            .then((respKeluar) => {
+                const dataKeluar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                respKeluar.data.forEach((element) => {
+                    dataKeluar[element.month - 1] = element.total;
+                });
+
+                const maxData = Math.max(
+                    ...dataMasuk.concat(dataKeluar),
+                    10 // minimum value (in case all data is zero)
+                );
+
+                // Chart rendering for combined data
+                var ctx = document.getElementById("myBarChart");
+                var myCombinedBarChart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: [
+                            "Januari",
+                            "Februari",
+                            "Maret",
+                            "April",
+                            "Mei",
+                            "Juni",
+                            "Juli",
+                            "Agustus",
+                            "September",
+                            "Oktober",
+                            "November",
+                            "December",
+                        ],
+                        datasets: [
+                            {
+                                label: "Barang Masuk",
+                                backgroundColor: "#4e73df",
+                                hoverBackgroundColor: "#2e59d9",
+                                borderColor: "#4e73df",
+                                data: dataMasuk,
+                            },
+                            {
+                                label: "Barang Keluar",
+                                backgroundColor: "#1cc88a",
+                                hoverBackgroundColor: "#17a673",
+                                borderColor: "#1cc88a",
+                                data: dataKeluar,
+                            },
+                        ],
                     },
-                ],
-                yAxes: [
-                    {
-                        ticks: {
-                            min: 0,
-                            max: 10,
-                            maxTicksLimit: 5,
-                            padding: 10,
-                            // Include a dollar sign in the ticks
-                            callback: function (value, index, values) {
-                                return "" + number_format(value);
+                    options: {
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 25,
+                                top: 25,
+                                bottom: 0,
                             },
                         },
-                        gridLines: {
-                            color: "rgb(234, 236, 244)",
-                            zeroLineColor: "rgb(234, 236, 244)",
-                            drawBorder: false,
-                            borderDash: [2],
-                            zeroLineBorderDash: [2],
+                        scales: {
+                            xAxes: [
+                                {
+                                    time: {
+                                        unit: "month",
+                                    },
+                                    gridLines: {
+                                        display: false,
+                                        drawBorder: false,
+                                    },
+                                    ticks: {
+                                        maxTicksLimit: 6,
+                                    },
+                                    maxBarThickness: 60,
+                                },
+                            ],
+                            yAxes: [
+                                {
+                                    ticks: {
+                                        min: 0,
+                                        max: maxData + 5,
+                                        maxTicksLimit: 5,
+                                        padding: 10,
+                                        callback: function (
+                                            value,
+                                            index,
+                                            values
+                                        ) {
+                                            return Math.round(value);
+                                        },
+                                    },
+                                    gridLines: {
+                                        color: "rgb(234, 236, 244)",
+                                        zeroLineColor: "rgb(234, 236, 244)",
+                                        drawBorder: false,
+                                        borderDash: [2],
+                                        zeroLineBorderDash: [2],
+                                    },
+                                },
+                            ],
+                        },
+                        legend: {
+                            display: true,
+                            labels: {
+                                fontColor: "#333",
+                                fontSize: 12,
+                            },
+                        },
+                        tooltips: {
+                            enabled: true,
+                            mode: "index",
+                            intersect: false,
+                            titleMarginBottom: 10,
+                            bodySpacing: 8,
+                            callbacks: {
+                                label: function (tooltipItem, chart) {
+                                    var datasetLabel =
+                                        chart.datasets[tooltipItem.datasetIndex]
+                                            .label || "";
+                                    var value =
+                                        chart.datasets[tooltipItem.datasetIndex]
+                                            .data[tooltipItem.index];
+                                    return (
+                                        datasetLabel + ": " + Math.round(value)
+                                    );
+                                },
+                            },
                         },
                     },
-                ],
-            },
-            legend: {
-                display: false,
-            },
-            tooltips: {
-                titleMarginBottom: 10,
-                titleFontColor: "#6e707e",
-                titleFontSize: 14,
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: "#dddfeb",
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-                callbacks: {
-                    label: function (tooltipItem, chart) {
-                        var datasetLabel =
-                            chart.datasets[tooltipItem.datasetIndex].label ||
-                            "";
-                        return (
-                            datasetLabel +
-                            ": " +
-                            number_format(tooltipItem.yLabel)
-                        );
-                    },
-                },
-            },
-        },
+                });
+            })
+            .catch((error) => {
+                console.error("Error fetching data barang keluar:", error);
+            });
+    })
+    .catch((error) => {
+        console.error("Error fetching data barang masuk:", error);
     });
-});

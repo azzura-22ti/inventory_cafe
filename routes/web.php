@@ -21,17 +21,17 @@ use App\Http\Controllers\CetakBarangKeluar;
 |
 */
 // login dan logout
-Route::get('/login' , [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login' , [LoginController::class, 'authenticate'])->name('authenticate');
-Route::post('/logout' , [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
-Route::get('/home' , [HomeController::class, 'index'])->name('home');
-Route::get('/home/barang-masuk' , [HomeController::class, 'barangMasuk'])->name('barangMasuk');
-Route::get('/home/barang-keluar' , [HomeController::class, 'barangKeluar'])->name('barangKeluar');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home/barang-masuk', [HomeController::class, 'barangMasuk'])->name('barangMasuk');
+Route::get('/home/barang-keluar', [HomeController::class, 'barangKeluar'])->name('barangKeluar');
 
-Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function(){
+Route::group(['middleware' => ['auth', 'ceklevel:admin,gudang']], function () {
     // ADMIN PUNYA
     // data user
     Route::get('/user', [UserController::class, 'index']);

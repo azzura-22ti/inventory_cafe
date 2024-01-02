@@ -17,6 +17,7 @@ class HomeController extends Controller
         $data = array(
             'title' => 'Dashboard | Inv-Cafe',
             'data_barang' => Barang::all(),
+            'barang_masuk' => BarangMasuk::all(),
         );
 
         $user = User::count();

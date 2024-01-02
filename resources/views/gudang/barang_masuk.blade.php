@@ -17,7 +17,7 @@
                         <th>Nama Barang</th>
                         <th>Kategori</th>
                         <th>Stok</th>
-                        <th>Satuan</th>
+                        <th>satuan</th>
                         <th>Total Harga</th>
                         <th>Actions</th>
                     </tr>
@@ -35,7 +35,6 @@
                         <td>{{ $b->stok }}</td>
                         <td>{{ $b->satuan }}</td>
                         <td>Rp. {{ number_format($b->harga * $b->stok) }}</td>
-
                         <td>
                             <a href="#modalCreate{{ $b->id }}" data-bs-toggle="modal" class="btn btn-primary"><i class='menu-icon tf-icons bx bx-plus'></i> Tambah</a>
 
@@ -88,6 +87,11 @@
                             <label for="nameWithTitle" class="form-label">Tanggal Masuk</label>
                             <input type="date" id="nameWithTitle" name="tanggal_masuk" class="form-control" />
                         </div>
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Expired Barang</label>
+                            <input type="date" id="nameWithTitle" name="expired_date" class="form-control" placeholder="Cth: Kg/Pcs/Box" />
+                        </div>
+
                         <div class="col mb-3">
                             <label for="nameWithTitle" class="form-label">Harga</label>
                             <div class="input-group mb-3">

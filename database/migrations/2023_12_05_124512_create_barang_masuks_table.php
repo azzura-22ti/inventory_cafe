@@ -20,6 +20,7 @@ class CreateBarangMasuksTable extends Migration
             $table->integer('stok')->nullable();
             $table->string('satuan')->nullable();
             $table->bigInteger('harga')->nullable();
+            $table->date('expired_date')->nullable();
             $table->date('tanggal_masuk');
             $table->integer('jumlah_masuk');
             $table->timestamps();
